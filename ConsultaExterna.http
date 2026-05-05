@@ -1,0 +1,6 @@
+@ConsultaExterna_HostAddress = http://localhost:5195
+
+GET {{ConsultaExterna_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
