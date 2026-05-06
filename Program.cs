@@ -17,8 +17,12 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 // Cambia 8080 por 10000
 var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
-app.Urls.Add($"http://0.0.0.0:{port}");
-
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ConsultaExternaContext>();
+    context.Database.Migrate(); 
+}
 // Configure the HTTP request pipeline.
 
     app.UseSwagger();
