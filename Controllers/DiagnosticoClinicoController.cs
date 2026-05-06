@@ -93,26 +93,35 @@ namespace ConsultaExterna.Controllers
             return Ok(result);
         }
         [HttpPost("hacer-orden-laboratorio")]
-        public async Task<IActionResult> HacerOrdenLaboratorio([FromBody] OrdenLaboratorioDTO orden)
+        public async Task<IActionResult> HacerOrdenLaboratorio( OrdenLaboratorioDTO orden)
         {
-            var url = $"{URL}api/OrdenLaboratorio/HacerOrdenLaboratorio" +
-                      $"?code={orden.Code}" +
-                      $"&PacienteCodigo={orden.PacienteCodigo}" +
-                      $"&MedicoCodigo={orden.MedicoCodigo}" +
-                      $"&FechaOrden={orden.FechaOrden.ToString("yyyy-MM-dd")}" +
-                      $"&TipoAtencion={orden.TipoAtencion}" +
-                      $"&Observaciones={orden.Observaciones}";
+            string fechaFormateada = orden.FechaOrden.ToString("yyyy-MM-dd");
 
-            var response = await httpClient.PostAsync(url, null);
+            var urlFinal = $"{URL}api/OrdenLaboratorio/HacerOrdenLaboratorio" +
+                          $"?code={Uri.EscapeDataString(orden.Code)}" +
+                          $"&PacienteCodigo={Uri.EscapeDataString(orden.PacienteCodigo)}" +
+                          $"&MedicoCodigo={Uri.EscapeDataString(orden.MedicoCodigo)}" +
+                          $"&FechaOrden={fechaFormateada}" +
+                          $"&TipoAtencion={Uri.EscapeDataString(orden.TipoAtencion)}" +
+                          $"&Observaciones={Uri.EscapeDataString(orden.Observaciones)}";
 
-            if (!response.IsSuccessStatusCode)
+            try
             {
-                var errorMsg = await response.Content.ReadAsStringAsync();
-                return StatusCode((int)response.StatusCode, $"Error en la API destino: {errorMsg}");
-            }
+                var response = await httpClient.PostAsync(urlFinal, null);
 
-            var result = await response.Content.ReadAsStringAsync();
-            return Ok(new { mensaje = "Orden creada con éxito", respuesta = result });
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errorMsg = await response.Content.ReadAsStringAsync();
+                    return StatusCode((int)response.StatusCode, $"Error en Laboratorio: {errorMsg}");
+                }
+
+                var result = await response.Content.ReadAsStringAsync();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error de comunicación: {ex.Message}");
+            }
         }
     }
 
