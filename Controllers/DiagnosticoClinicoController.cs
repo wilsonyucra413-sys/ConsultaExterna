@@ -14,6 +14,41 @@ namespace ConsultaExterna.Controllers
         {
             this.httpClient = httpClient;
         }
+        [HttpGet("probar-conexion")]
+        public async Task<IActionResult> ProbarConexion()
+        {
+            // URL directa para listar todo
+            string urlPrueba = "https://diagnosticoseguro2-3.onrender.com/api/Resultadoes";
+
+            try
+            {
+                // Consumimos el objeto que contiene la lista bajo la clave "resultados"
+                var respuesta = await httpClient.GetFromJsonAsync<ResultadoListResponseDTO>(urlPrueba);
+
+                if (respuesta == null || respuesta.Resultados == null)
+                {
+                    return NotFound("Conectó, pero la lista de resultados vino vacía.");
+                }
+
+                // Si esto funciona, devuelve la lista y confirma la conexión
+                return Ok(new
+                {
+                    estado = "Conexión Exitosa",
+                    mensajeServicioDestino = respuesta.Mensaje,
+                    datos = respuesta.Resultados
+                });
+            }
+            catch (Exception ex)
+            {
+                // Si entra aquí, nos dirá el error técnico real
+                return StatusCode(500, new
+                {
+                    estado = "Error de Conexión",
+                    error = ex.Message,
+                    urlIntentada = urlPrueba
+                });
+            }
+        }
         [HttpGet("consulta-medico/{ordenCodigo}")]
         public async Task<IActionResult> GetConsultaMedico(string ordenCodigo)
         {
@@ -80,4 +115,5 @@ namespace ConsultaExterna.Controllers
             return Ok(new { mensaje = "Orden creada con éxito", respuesta = result });
         }
     }
+
 }
