@@ -227,3 +227,4 @@
 /home/wilson/Documentos/Universidad/SistemasInformacionII/ConsultaExterna/ConsultaExterna/obj/Debug/net8.0/ConsultaExterna.pdb
 /home/wilson/Documentos/Universidad/SistemasInformacionII/ConsultaExterna/ConsultaExterna/obj/Debug/net8.0/ConsultaExterna.genruntimeconfig.cache
 /home/wilson/Documentos/Universidad/SistemasInformacionII/ConsultaExterna/ConsultaExterna/obj/Debug/net8.0/ref/ConsultaExterna.dll
+/home/wilson/Documentos/Universidad/SistemasInformacionII/ConsultaExterna/ConsultaExterna/obj/Debug/net8.0/ConsultaExterna.sourcelink.json

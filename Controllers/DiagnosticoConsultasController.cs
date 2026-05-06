@@ -183,6 +183,9 @@ namespace ConsultaExterna.Controllers
                 .Include(d => d.TipoDiagnostico)
                 .FirstOrDefaultAsync(d => d.Codigo == codigo);
 
+            if (res == null)
+                return BadRequest(new { mensaje = "Error al crear el diagnóstico consulta" });
+
             return Ok(new
             {
                 mensaje = "Se creo correctamente un diagnostico consulta",

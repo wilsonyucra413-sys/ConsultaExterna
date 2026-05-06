@@ -77,7 +77,7 @@ namespace ConsultaExterna.Controllers
 
             if (con == null)
                 return NotFound(new { mensaje = "Codigo no existe" });
-            if (con != null && con.Estado == "Inactivo")
+            if (con.Estado == "Inactivo")
                 return NotFound(new { mensaje = "Consulta inactiva" });
 
             return Ok(new { mensaje = "Consulta encontrada", consulta = con.ToConsultaDTO() });
@@ -156,7 +156,7 @@ namespace ConsultaExterna.Controllers
         [HttpPut("ActulizarConsulta/{codigo}")]
         public async Task<IActionResult> PutConsulta(string codigo,UpdateConsultaDTO consulta)
         {
-            Consulta con = await context.Consulta.FirstOrDefaultAsync(c => c.Codigo == codigo);
+            Consulta? con = await context.Consulta.FirstOrDefaultAsync(c => c.Codigo == codigo);
             if (con == null) return NotFound(new {mensaje="no existe ese codigo"});
             if (con.Estado == "Inactivo")  return NotFound(new {mensaje="la consulta esta inactiva"});
 

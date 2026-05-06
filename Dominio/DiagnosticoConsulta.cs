@@ -9,17 +9,17 @@ namespace ConsultaExterna.Dominio
         [Key]
         public int IdDiagnosticoConsulta { get; set; }
         //el codigo de farmacia me sirve para identificar el tipo de emfermedad
-        public string CodigoFarmacia { get; set; }
-        public string Descripcion { get; set; }
-        public string Codigo { get; set; }
-        public string Estado { get; set; }
+        public string? CodigoFarmacia { get; set; }
+        public string? Descripcion { get; set; }
+        public string? Codigo { get; set; }
+        public string? Estado { get; set; }
         public int IdConsulta { get; set; }
         public int IdTipoDiagnostico { get; set; }
         [ForeignKey("IdConsulta")]
         [JsonIgnore]
-        public Consulta Consulta { get; set; }
+        public Consulta? Consulta { get; set; }
         [ForeignKey("IdTipoDiagnostico")]
         [JsonIgnore]
-        public TipoDiagnostico TipoDiagnostico { get; set; }
+        public TipoDiagnostico? TipoDiagnostico { get; set; }
     }
 }

@@ -7,9 +7,9 @@ namespace ConsultaExterna.DTO
 {
     public class OrdenExamenDTO
     {
-        public string OrdenCodigo { get; set; }
-        public string ExamenCodigo { get; set; }
-        public string MuestraCodigo { get; set; }
-        public string AreaLaboratorio { get; set; }
+        public string? OrdenCodigo { get; set; }
+        public string? ExamenCodigo { get; set; }
+        public string? MuestraCodigo { get; set; }
+        public string? AreaLaboratorio { get; set; }
     }
 }

@@ -114,6 +114,9 @@ namespace ConsultaExterna.Controllers
                 .Include(n => n.Consulta)
                 .FirstOrDefaultAsync(n => n.Codigo == codigo);
 
+            if (res == null)
+                return BadRequest(new { mensaje = "Error al crear la nota" });
+
             return Ok(new
             {
                 mensaje = "Nota creada correctamente",
