@@ -14,7 +14,7 @@ namespace ConsultaExterna.Controllers
         {
             this.httpClient = httpClient;
         }
-        [HttpGet("probar-conexion")]
+        [HttpGet("MostrarOrdenLaboratorio")]
         public async Task<IActionResult> ProbarConexion()
         {
             // URL directa para listar todo
