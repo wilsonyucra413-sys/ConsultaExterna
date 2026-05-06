@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ConsultaExterna")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+39221617d4053214fd64a3a9827ed0f6da0d7657")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+55ba87cbd98470ef6b82f0ce3436e81f8f6ff25f")]
 [assembly: System.Reflection.AssemblyProductAttribute("ConsultaExterna")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ConsultaExterna")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
