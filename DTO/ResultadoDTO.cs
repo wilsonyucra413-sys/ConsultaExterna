@@ -7,6 +7,7 @@ namespace ConsultaExterna.DTO
 {
     public class ResultadoDTO
     {
+        public string ResultadoCodigo { get; set; }
         public string CodigoPaciente { get; set; }
         public string OrdenCodigo { get; set; }
         public string TipoAtencion { get; set; }
@@ -16,5 +17,11 @@ namespace ConsultaExterna.DTO
         public string Unidad { get; set; }
         public string Referencia { get; set; }
         public DateOnly Fecha { get; set; }
+    }
+    public class ResultadoResponseDTO
+    {
+        public string Mensaje { get; set; }
+        public int TotalParametros { get; set; }
+        public List<ResultadoDTO> Data { get; set; }
     }
 }

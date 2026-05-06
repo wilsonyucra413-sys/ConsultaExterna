@@ -9,6 +9,7 @@ namespace ConsultaExterna.Controllers
     {
         public readonly HttpClient httpClient;
         public readonly string URL = "https://diagnosticoseguro2-3.onrender.com/";
+        //https://diagnosticoseguro2-3.onrender.com/api/Resultadoes/ConsultaMedico/O-1
         public DiagnosticoClinicoController(HttpClient httpClient)
         {
             this.httpClient = httpClient;
@@ -16,22 +17,30 @@ namespace ConsultaExterna.Controllers
         [HttpGet("consulta-medico/{ordenCodigo}")]
         public async Task<IActionResult> GetConsultaMedico(string ordenCodigo)
         {
+            // URL que pasaste: https://diagnosticoseguro2-3.onrender.com/api/Resultadoes/ConsultaMedico/O-1
             var urlFinal = $"{URL}api/Resultadoes/ConsultaMedico/{ordenCodigo}";
 
-            var resultados = await httpClient.GetFromJsonAsync<List<ResultadoDTO>>(urlFinal);
-
-            if (resultados == null || !resultados.Any())
+            try
             {
-                return NotFound($"No se encontraron resultados para la orden: {ordenCodigo}");
+                var respuesta = await httpClient.GetFromJsonAsync<ResultadoResponseDTO>(urlFinal);
+
+                if (respuesta == null || respuesta.Data == null)
+                {
+                    return NotFound("No se encontraron resultados.");
+                }
+
+                return Ok(respuesta.Data);
             }
-
-            return Ok(resultados);
-
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error: {ex.Message}");
+            }
         }
         //post ordenexamen
         [HttpPost("crear-orden-examen")]
         public async Task<IActionResult> CrearOrdenExamen(OrdenExamenDTO orden)
         {
+            //api/OrdenExamen?OrdenCodigo=daf&ExamenCodigo=dsaf&MuestraCodigo=sdf&AreaLaboratorio=adsfsd
             var url = $"{URL}api/OrdenExamen" +
                       $"?OrdenCodigo={orden.OrdenCodigo}" +
                       $"&ExamenCodigo={orden.ExamenCodigo}" +
